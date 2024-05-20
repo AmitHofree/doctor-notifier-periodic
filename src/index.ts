@@ -18,10 +18,10 @@ export default {
 	async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext) {
 		console.log("Triggered periodic update");
 		const itemKeyIndexes = await getAllRegisteredItemKeyIndexes(env);
-		itemKeyIndexes.forEach(itemKeyIndex => {
+		for (const itemKeyIndex of itemKeyIndexes) {
 			console.log(`Triggering update for itemKeyIndex ${itemKeyIndex}`);
-			env.SERVICE.checkAndNotify(itemKeyIndex);
-		});
+			await env.SERVICE.checkAndNotify(itemKeyIndex);
+		}
 	}
 };
 
